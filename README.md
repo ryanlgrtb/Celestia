@@ -1,7 +1,7 @@
 ## Script
 ```lua
 local owner = "ryanlgrtb"
-local branch = game:GetService('HttpService'):JSONDecode(game:HttpGetAsync('https://api.github.com/repos/' .. user .. '/Celestia/commits'))[1]['sha']
+local branch = game:GetService('HttpService'):JSONDecode(game:HttpGetAsync('https://api.github.com/repos/' .. owner .. '/Celestia/commits'))[1]['sha']
 
 local function webImport(file)
     return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Celestia/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
