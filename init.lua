@@ -6,7 +6,7 @@ end
 
 local web = true
 local user = "ryanlgrtb" -- change if you're using a fork
-local branch = "revision"
+local branch = game:GetService('HttpService'):JSONDecode(game:HttpGetAsync('https://api.github.com/repos/' .. user .. '/Celestia/commits'))[1]['sha']
 local importCache = {}
 
 local function hasMethods(methods)
