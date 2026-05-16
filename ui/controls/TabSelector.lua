@@ -45,6 +45,7 @@ local animationCache = {}
 local function selectTab(tabName)
     local methodsFound = requiredMethods[tabName]
     local missingMethods = methodsFound and methodsCheck(methodsFound)
+    print('Switching to', tabName)
 
     if missingMethods then
         return MessageBox.Show(
