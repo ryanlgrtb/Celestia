@@ -45,7 +45,6 @@ local animationCache = {}
 local function selectTab(tabName)
     local methodsFound = requiredMethods[tabName]
     local missingMethods = methodsFound and methodsCheck(methodsFound)
-    print('Switching to', tabName)
 
     if missingMethods then
         return MessageBox.Show(
@@ -89,7 +88,6 @@ for _i, tab in pairs(Tabs:GetChildren()) do
             iconSelected = iconSelected,
             iconUnselected = iconUnselected
         }
-        print('Binding', tab.Name)
 
         tab.MouseButton1Click:Connect(function()
             if selectedTab ~= tab and Tabs:FindFirstChild(tab.Name) then
