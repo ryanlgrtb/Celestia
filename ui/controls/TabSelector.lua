@@ -89,6 +89,7 @@ for _i, tab in pairs(Tabs:GetChildren()) do
             iconSelected = iconSelected,
             iconUnselected = iconUnselected
         }
+        print('Binding', tab.Name)
 
         tab.MouseButton1Click:Connect(function()
             if selectedTab ~= tab and Tabs:FindFirstChild(tab.Name) then
