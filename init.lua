@@ -9,7 +9,7 @@ local user = "ryanlgrtb" -- change if you're using a fork
 local branch = game:GetService('HttpService'):JSONDecode(game:HttpGetAsync('https://api.github.com/repos/' .. user .. '/Celestia/commits'))[1]['sha']
 local importCache = {}
 
-local debug = true
+local debugging = true
 
 local function hasMethods(methods)
     for name in pairs(methods) do
@@ -229,7 +229,7 @@ if readFile and writeFile then
 
                     if (isFile and not isFile(file)) or not importCache[asset] then
                         content = game:HttpGetAsync("https://raw.githubusercontent.com/" .. user .. "/Celestia/" .. branch .. '/' .. asset .. ".lua")
-                        if not debug then
+                        if not debugging then
                             writeFile(file, content)
                         end
                     else
@@ -237,7 +237,7 @@ if readFile and writeFile then
 
                         if (not ran) or not importCache[asset] then
                             content = game:HttpGetAsync("https://raw.githubusercontent.com/" .. user .. "/Celestia/" .. branch .. '/' .. asset .. ".lua")
-                            if not debug then
+                            if not debugging then
                                 writeFile(file, content)
                             end
                         else
@@ -257,7 +257,7 @@ if readFile and writeFile then
             return unpack(assets)
         end
 
-        if not debug then
+        if not debugging then
             writeFile("__oh_version.txt", releaseInfo.tag_name)
         end
     elseif ran and releaseInfo.tag_name == result then
@@ -275,7 +275,7 @@ if readFile and writeFile then
 
                 if not ran then
                     content = game:HttpGetAsync("https://raw.githubusercontent.com/" .. user .. "/Celestia/" .. branch .. '/' .. asset .. ".lua")
-                    if not debug then
+                    if not debugging then
                         writeFile(file, content)
                     end
                 else
