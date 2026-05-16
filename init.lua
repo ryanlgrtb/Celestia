@@ -185,7 +185,8 @@ end
 useMethods(globalMethods)
 
 local HttpService = game:GetService("HttpService")
-local releaseInfo = HttpService:JSONDecode(game:HttpGetAsync("https://api.github.com/repos/" .. user .. "/Celestia/releases"))[1]
+local releaseInfo = HttpService:JSONDecode(game:HttpGetAsync('https://raw.githubusercontent.com/' .. user .. '/Celestia/' .. branch .. '/version.json'))
+-- local releaseInfo = HttpService:JSONDecode(game:HttpGetAsync("https://api.github.com/repos/" .. user .. "/Celestia/releases"))[1]
 
 if readFile and writeFile then
     local hasFolderFunctions = (isFolder and makeFolder) ~= nil
