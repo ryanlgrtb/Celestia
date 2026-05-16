@@ -3,8 +3,8 @@ local TweenService = game:GetService("TweenService")
 local TabSelector = {}
 
 local Base = import("rbxassetid://129893693587635").Base
-local Tabs = Base.Tabs.Container
-local Pages = Base.Body.Pages
+local Tabs = Base:WaitForChild('Tabs'):WaitForChild('Container')
+local Pages = Base:WaitForChild('Body'):WaitForChild('Pages')
 
 local MessageBox, MessageType = import("ui/controls/MessageBox")
 
