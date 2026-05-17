@@ -183,6 +183,7 @@ function Log.new(localScript)
                     v.ZIndex = 10
                 end
             end
+            InfoSource.Wrapper.Code.Text = ''
 
             selected.scriptLog = log
         end
