@@ -8,6 +8,7 @@ if oh.Cache["ui/main"] then
 	return Interface
 end
 
+_G.logs = _G.logs or {}
 getgenv().Highlighter = import('modules/Highlighter')
 
 import("ui/controls/TabSelector")

@@ -167,10 +167,10 @@ function Log.new(localScript)
             -- end
 
             -- script decompilation here
-            
-            _G.logs = _G.logs or {}
-            _G.logs[localScript] = _G.logs[localScript] or decompile(localScript)
-            InfoSource.Wrapper.Code.Text = _G.logs[localScript]
+
+            local source = _G.logs[scriptInstance] or decompile(scriptInstance)
+            _G.logs[scriptInstance] = source
+            InfoSource.Wrapper.Code.Text = source
             Highlighter.highlight(
                 {
                     textObject = InfoSource.Wrapper.Code
