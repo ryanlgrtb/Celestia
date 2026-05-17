@@ -156,11 +156,11 @@ environment.oh = {
         local assets = environment.LoadAsset('CelestiaAssets.rbxm')
 
         if ui then
-            unpack(ui):Destroy()
+            ui:Destroy()
         end
 
         if assets then
-            unpack(assets):Destroy()
+            assets:Destroy()
         end
     end
 }
