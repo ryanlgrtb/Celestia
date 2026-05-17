@@ -393,23 +393,25 @@ local function createArg(instance, index, value)
 end
 
 function ArgsLog.new(log, callInfo)
-    local instance = Assets.CallPod:Clone()
+    local callPodOut = Assets.CallPod:Clone()
+    
     local args = callInfo.args
 
     if selected.remoteLog ~= log then
-        instance.Visible = false
+        callPodOut.Visible = false
     end
 
-    local buttonOut = ListButton.new(instance, remoteLogsOut)
-    local buttonIn = ListButton.new(instance, remoteLogsIn)
+    local buttonOut = ListButton.new(callPodOut, remoteLogsOut)
+    -- local buttonIn = ListButton.new(instance, remoteLogsIn)
+
     local height = 0
 
     if #args == 0 then
-        height = height + createArg(instance, 1, nil)
+        height = height + createArg(callPodOut, 1, nil)
     else
         for i = 1, #args do
             local v = args[i]
-            height = height + createArg(instance, i, v)
+            height = height + createArg(callPodOut, i, v)
         end
     end
 
@@ -420,17 +422,19 @@ function ArgsLog.new(log, callInfo)
         selected.callPodButton = buttonOut
     end)
 
+    --[[
     buttonIn:SetRightCallback(function()
         selected.args = callInfo.args
         selected.callingScript = callInfo.script
         selected.func = callInfo.func
         selected.callPodButton = buttonIn
     end)
+    ]]--
 
     buttonOut.Instance.Size = buttonOut.Instance.Size + UDim2.new(0, 0, 0, height)
-    buttonIn.Instance.Size = buttonIn.Instance.Size + UDim2.new(0, 0, 0, height)
+    -- buttonIn.Instance.Size = buttonIn.Instance.Size + UDim2.new(0, 0, 0, height)
 
-    return buttonOut, buttonIn
+    return buttonOut --, buttonIn
 end
 
 function Log.playIgnore(log)
