@@ -222,6 +222,9 @@ if readFile and writeFile then
         end
         
         function environment.LoadAsset(file)
+            if debugging then
+                print('Loading', file)
+            end
             if loadCache[file] then
                 return unpack(loadCache[file])
             end
@@ -236,13 +239,16 @@ if readFile and writeFile then
                     )
                 end)
                 if ok and asset then
-                    loadCache[file] = { asset }
+                    if debugging then
+                        print('Loaded asset', file, asset[1])
+                    end
+                    loadCache[file] = asset
                 else
                     error('Failed to load asset ' .. file)
                 end
             end
             
-            return loadCache[file]
+            return unpack(loadCache[file])
         end
 
         function environment.import(asset)
