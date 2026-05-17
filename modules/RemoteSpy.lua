@@ -36,6 +36,7 @@ local methodHooks = {
 }
 
 local currentRemotes = {}
+local fakeConnections = {}
 
 local remoteDataEvent = Instance.new("BindableEvent")
 local eventSet = false
@@ -48,51 +49,79 @@ local function connectEvent(callback)
     end
 end
 
+--[[
+local function handleConnection(event, method, func, ...)
+    local extra = { ... }
+    local fakeEvent = Instance.new('BindableEvent')
+    local fakeConnection = fakeEvent.Event[method](function(...)
+        print(...)
+        return func(...)
+    end, table.unpack(extra))
+    table.insert(fakeConnections, fakeConnection)
+end
+]]--
+
 local nmcTrampoline
 nmcTrampoline = hookMetaMethod(game, "__namecall", function(...)
     local instance = ...
     
-    if typeof(instance) ~= "Instance" then
+    if typeof(instance) ~= "Instance" or typeof(instance) ~= 'RBXScriptSignal' then
         return nmcTrampoline(...)
     end
 
     local method = getNamecallMethod()
 
+    -- hooks outgoing events
     if method == "fireServer" then
         method = "FireServer"
     elseif method == "invokeServer" then
         method = "InvokeServer"
     end
-        
-    if remotesViewing[instance.ClassName] and instance ~= remoteDataEvent and remoteMethods[method] then
-        local remote = currentRemotes[instance]
-        local vargs = {select(2, ...)}
-            
-        if not remote then
-            remote = Remote.new(instance)
-            currentRemotes[instance] = remote
-        end
 
-        local remoteIgnored = remote.Ignored
-        local remoteBlocked = remote.Blocked
-        local argsIgnored = remote.AreArgsIgnored(remote, vargs)
-        local argsBlocked = remote.AreArgsBlocked(remote, vargs)
+    -- hooks incoming listeners
+    if method == 'connect' then
+        method = 'Connect'
+    elseif method == 'wait' then
+        method = 'Wait'
+    end
+    
+    if typeof(instance) == 'Instance' then
+        if remotesViewing[instance.ClassName] and instance ~= remoteDataEvent and remoteMethods[method] then
+            local remote = currentRemotes[instance]
+            local vargs = {select(2, ...)}
+                
+            if not remote then
+                remote = Remote.new(instance)
+                currentRemotes[instance] = remote
+            end
 
-        if eventSet and (not remoteIgnored and not argsIgnored) then
-            local call = {
-                script = getCallingScript((PROTOSMASHER_LOADED ~= nil and 2) or nil),
-                args = vargs,
-                func = getInfo(3).func
-            }
+            local remoteIgnored = remote.Ignored
+            local remoteBlocked = remote.Blocked
+            local argsIgnored = remote.AreArgsIgnored(remote, vargs)
+            local argsBlocked = remote.AreArgsBlocked(remote, vargs)
 
-            remote.IncrementCalls(remote, call)
-            remoteDataEvent.Fire(remoteDataEvent, instance, call)
-        end
+            if eventSet and (not remoteIgnored and not argsIgnored) then
+                local call = {
+                    script = getCallingScript((PROTOSMASHER_LOADED ~= nil and 2) or nil),
+                    args = vargs,
+                    func = getInfo(3).func
+                }
 
-        if remoteBlocked or argsBlocked then
-            return
+                remote.IncrementCalls(remote, call)
+                remoteDataEvent.Fire(remoteDataEvent, instance, call)
+            end
+
+            if remoteBlocked or argsBlocked then
+                return
+            end
         end
     end
+
+    --[[
+    if typeof(instance) == 'RBXScriptSignal' then
+        return handleConnection(instance, method, ...)
+    end
+    ]]--
 
     return nmcTrampoline(...)
 end)

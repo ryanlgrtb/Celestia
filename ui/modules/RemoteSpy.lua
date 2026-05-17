@@ -393,6 +393,7 @@ local function createArg(instance, index, value)
 end
 
 function ArgsLog.new(log, callInfo)
+    local isOut = callInfo.outgoing or false
     local callPodOut = Assets.CallPod:Clone()
     
     local args = callInfo.args
