@@ -35,7 +35,8 @@ local RemoteLogs = Page.Logs
 local LogsButtons = RemoteLogs.Buttons
 local LogsRemote = RemoteLogs.RemoteObject
 local LogsBack = RemoteLogs.Back
-local LogsResults = RemoteLogs.Results.Clip.Content
+local LogsResultsOut = RemoteLogs.Results.Clip.Outgoing
+local LogsResultsIn = RemoteLogs.Results.Clip.Incoming
 
 local RemoteConditions = Page.Conditions
 local ConditionsRemote = RemoteConditions.RemoteObject
@@ -81,7 +82,8 @@ local conditionValueType = Dropdown.new(NewConditionContent.ValueType)
 
 local remoteList = List.new(ListResults, true)
 
-local remoteLogs = List.new(LogsResults)
+local remoteLogsOut = List.new(LogsResultsOut)
+local remoteLogsIn = List.new(LogsResultsIn)
 local remoteConditions = List.new(ConditionsResults, true)
 
 local currentLogs = {}
@@ -267,7 +269,10 @@ end
 
 remoteList:BindContextMenu(remoteListMenu)
 remoteList:BindContextMenuSelected(remoteListMenuSelected)
-remoteLogs:BindContextMenu(remoteLogsMenu)
+
+remoteLogsOut:BindContextMenu(remoteLogsMenu)
+remoteLogsIn:BindContextMenu(remoteLogsMenu)
+
 remoteConditions:BindContextMenu(remoteConditionMenu)
 remoteConditions:BindContextMenuSelected(remoteConditionMenuSelected)
 
@@ -293,7 +298,8 @@ function Log.new(remote)
 
     local function viewLogs()
         if selected.remoteLog then
-            remoteLogs:Clear()
+            remoteLogsOut:Clear()
+            remoteLogsIn:Clear()
         end
         
         local nameLength = TextService:GetTextSize(remoteInstanceName, 18, "SourceSans", constants.textWidth).X + 20
@@ -312,7 +318,8 @@ function Log.new(remote)
         LogsRemote.Label.Size = UDim2.new(0, nameLength, 0, 20)
         LogsRemote.Position = UDim2.new(1, -nameLength, 0, 0)
 
-        remoteLogs:Recalculate()
+        remoteLogsOut:Recalculate()
+        remoteLogsIn:Recalculate()
     end
 
     listButton:SetCallback(function()
@@ -393,7 +400,8 @@ function ArgsLog.new(log, callInfo)
         instance.Visible = false
     end
 
-    local button = ListButton.new(instance, remoteLogs)
+    local buttonOut = ListButton.new(instance, remoteLogsOut)
+    local buttonIn = ListButton.new(instance, remoteLogsIn)
     local height = 0
 
     if #args == 0 then
@@ -405,16 +413,24 @@ function ArgsLog.new(log, callInfo)
         end
     end
 
-    button:SetRightCallback(function()
+    buttonOut:SetRightCallback(function()
         selected.args = callInfo.args
         selected.callingScript = callInfo.script
         selected.func = callInfo.func
-        selected.callPodButton = button
+        selected.callPodButton = buttonOut
     end)
 
-    button.Instance.Size = button.Instance.Size + UDim2.new(0, 0, 0, height)
+    buttonIn:SetRightCallback(function()
+        selected.args = callInfo.args
+        selected.callingScript = callInfo.script
+        selected.func = callInfo.func
+        selected.callPodButton = buttonIn
+    end)
 
-    return button 
+    buttonOut.Instance.Size = button.Instance.Size + UDim2.new(0, 0, 0, height)
+    buttonIn.Instance.Size = button.Instance.Size + UDim2.new(0, 0, 0, height)
+
+    return buttonOut, buttonIn
 end
 
 function Log.playIgnore(log)
@@ -450,7 +466,8 @@ function Log.clear(log)
     log.Remote:Clear()
 
     if selected.remoteLog == log then
-        remoteLogs:Clear()
+        remoteLogsOut:Clear()
+        remoteLogsIn:Clear()
     end
 
     logInstance.Calls.Text = 0
@@ -468,7 +485,8 @@ function Log.incrementCalls(log, callInfo)
     
     if selected.remoteLog == log then
         ArgsLog.new(log, callInfo)
-        remoteLogs:Recalculate()
+        remoteLogsOut:Recalculate()
+        remoteLogsIn:Recalculate()
     end
 end
 
