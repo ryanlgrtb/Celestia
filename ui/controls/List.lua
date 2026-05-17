@@ -16,7 +16,7 @@ function List.new(instance, multiClick)
     local list = {}
     
     list.Container = instance
-    if instance.Parent:IsA('Frame') then
+    if instance:IsA('Frame') then
         list.Container = instance.Parent
     end
     list.Container.CanvasSize = UDim2.new(0, 0, 0, 15)
