@@ -177,6 +177,13 @@ function Log.new(localScript)
                 }
             )
 
+            local lines = InfoSource.Wrapper.Code:WaitForChild('SyntaxHighlights')
+            for i, v in next, lines:GetChildren() do
+                if v:IsA('TextLabel') then
+                    v.ZIndex = 10
+                end
+            end
+
             selected.scriptLog = log
         end
     end)
