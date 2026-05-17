@@ -226,6 +226,17 @@ for _i, sectionButton in pairs(InfoOptions:GetChildren()) do
 
         sectionButton.MouseButton1Click:Connect(function()
             local section = InfoSections:FindFirstChild(sectionButton.Name)
+
+            if section.Name == 'Source' then
+                local path = selected.logContext.LocalScript.Instance
+                section.Wrapper.Code.Text = decompile(path)
+                Highlighter.highlight(
+                    {
+                        textObject = section.Wrapper.Code
+                    }
+                )
+            end
+            
             animationCache[selectedSectionButton].leave:Play()
             
             selectedSection.Visible = false
