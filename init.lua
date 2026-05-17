@@ -12,8 +12,8 @@ local importCache = {}
 local debugging = true
 
 getgenv().Imports = {
-	Interface = 'rbxassetid://129893693587635',
-	Assets = 'rbxassetid://131683524030585'
+	Interface = 'rbxassetid://80656998888023',
+	Assets = 'rbxassetid://85243661160730'
 }
 
 local function hasMethods(methods)
