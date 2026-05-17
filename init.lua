@@ -226,7 +226,7 @@ if readFile and writeFile then
                 print('Loading', file)
             end
             if loadCache[file] then
-                return unpack(loadCache[file])
+                return loadCache[file]
             end
             
             local content = game:HttpGetAsync('https://raw.githubusercontent.com/' .. user .. '/Celestia/' .. branch .. '/' .. file)
@@ -242,14 +242,14 @@ if readFile and writeFile then
                     if debugging then
                         print('Loaded asset', file, asset[1])
                     end
-                    loadCache[file] = asset
+                    loadCache[file] = asset[1]
                 else
                     writefile(`{tostring(os.time())} {file}.txt`, content)
                     error('Failed to load asset ' .. file .. ' because: ' .. asset)
                 end
             end
             
-            return unpack(loadCache[file])
+            return loadCache[file]
         end
 
         function environment.import(asset)
