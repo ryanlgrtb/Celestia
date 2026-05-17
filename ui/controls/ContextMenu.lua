@@ -1,4 +1,4 @@
-local Assets = LoadAsset('Celestia Assets.rbxm').Controls
+local Assets = LoadAsset('Celestia Assets.rbxmx').Controls
 local Storage = LoadAsset('Celestia.rbxm').ContextMenus
 
 local Players = game:GetService("Players")

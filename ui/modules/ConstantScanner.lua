@@ -16,7 +16,7 @@ local ContextMenu, ContextMenuButton = import("ui/controls/ContextMenu")
 local TabSelector = import("ui/controls/TabSelector")
 
 local Page = LoadAsset('Celestia.rbxm').Base.Body.Pages.ConstantScanner
-local Assets = LoadAsset('Celestia Assets.rbxm').ConstantScanner
+local Assets = LoadAsset('Celestia Assets.rbxmx').ConstantScanner
 
 local Query = Page.Query
 local Search = Query.Search
