@@ -427,8 +427,8 @@ function ArgsLog.new(log, callInfo)
         selected.callPodButton = buttonIn
     end)
 
-    buttonOut.Instance.Size = button.Instance.Size + UDim2.new(0, 0, 0, height)
-    buttonIn.Instance.Size = button.Instance.Size + UDim2.new(0, 0, 0, height)
+    buttonOut.Instance.Size = buttonOut.Instance.Size + UDim2.new(0, 0, 0, height)
+    buttonIn.Instance.Size = buttonIn.Instance.Size + UDim2.new(0, 0, 0, height)
 
     return buttonOut, buttonIn
 end
