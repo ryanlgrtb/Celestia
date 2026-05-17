@@ -11,6 +11,11 @@ local importCache = {}
 
 local debugging = true
 
+getgenv().Imports = {
+	Interface = 'rbxassetid://129893693587635',
+	Assets = 'rbxassetid://131683524030585'
+}
+
 local function hasMethods(methods)
     for name in pairs(methods) do
         if not environment[name] then
@@ -144,8 +149,8 @@ environment.oh = {
             end
         end
 
-        local ui = importCache["rbxassetid://129893693587635"]
-        local assets = importCache["rbxassetid://131683524030585"]
+        local ui = importCache[Imports.Interface]
+        local assets = importCache[Imports.Assets]
 
         if ui then
             unpack(ui):Destroy()

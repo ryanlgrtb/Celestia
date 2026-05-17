@@ -2,7 +2,7 @@ local CoreGui = game:GetService("CoreGui")
 local UserInput = game:GetService("UserInputService")
 local HttpService = game:GetService("HttpService")
 
-local Interface = import("rbxassetid://129893693587635")
+local Interface = import(Imports.Interface)
 
 if oh.Cache["ui/main"] then
 	return Interface
