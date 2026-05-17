@@ -14,9 +14,13 @@ local constants = {
 
 function List.new(instance, multiClick)
     local list = {}
-
-    instance.CanvasSize = UDim2.new(0, 0, 0, 15)
-
+    
+    list.Container = instance
+    if instance.Parent:IsA('Frame') then
+        list.Container = instance.Parent
+    end
+    list.Container.CanvasSize = UDim2.new(0, 0, 0, 15)
+    
     list.Buttons = {}
     list.Instance = instance
     list.Clear = List.clear
@@ -32,7 +36,7 @@ end
 
 function ListButton.new(instance, list)
     local listButton = {}
-    local listInstance = list.Instance
+    local listInstance = list.Container
 
     list.Buttons[instance] = listButton
 
@@ -91,7 +95,7 @@ function List.clear(list)
         end
     end
 
-    instance.CanvasSize = UDim2.new(0, 0, 0, 15)
+    list.Container.CanvasSize = UDim2.new(0, 0, 0, 15)
     list.Buttons = {}
 end
 
@@ -104,7 +108,7 @@ function List.recalculate(list)
         end
     end
 
-    list.Instance.CanvasSize = UDim2.new(0, 0, 0, newHeight)
+    list.Container.CanvasSize = UDim2.new(0, 0, 0, newHeight)
 end
 
 function List.bindContextMenu(list, contextMenu)
@@ -154,7 +158,7 @@ end
 function ListButton.remove(listButton)
     local list = listButton.List
     local instance = listButton.Instance
-    local listInstance = list.Instance
+    local listInstance = list.Container
 
     listInstance.CanvasSize = listInstance.CanvasSize - UDim2.new(0, 0, 0, instance.AbsoluteSize.Y + 5)
     list.Buttons[instance] = nil 
