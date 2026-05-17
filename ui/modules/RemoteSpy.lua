@@ -29,7 +29,8 @@ local ListFlags = RemoteList.Flags
 local ListQuery = RemoteList.Query
 local ListSearch = ListQuery.Search
 local ListRefresh = ListQuery.Refresh
-local ListResults = RemoteList.Results.Clip.Content
+local ListResultsOutgoing = RemoteList.Results.Clip.Outgoing
+local ListResultsIncoming = RemoteList.Results.Clip.Incoming
 
 local RemoteLogs = Page.Logs
 local LogsButtons = RemoteLogs.Buttons
@@ -79,7 +80,9 @@ local conditionStatus = Dropdown.new(NewConditionContent.Status)
 local conditionType = Dropdown.new(NewConditionContent.Type)
 local conditionValueType = Dropdown.new(NewConditionContent.ValueType)
 
-local remoteList = List.new(ListResults, true)
+local remoteListOut = List.new(ListResultsOutgoing, true)
+local remoteListIn = List.new(ListResultsIncoming, true)
+
 local remoteLogs = List.new(LogsResults)
 local remoteConditions = List.new(ConditionsResults, true)
 
@@ -264,8 +267,10 @@ local function createConditions(remote)
     end
 end
 
-remoteList:BindContextMenu(remoteListMenu)
-remoteList:BindContextMenuSelected(remoteListMenuSelected)
+-- outgoing context menu
+remoteListOut:BindContextMenu(remoteListMenu)
+remoteListOut:BindContextMenuSelected(remoteListMenuSelected)
+
 remoteLogs:BindContextMenu(remoteLogsMenu)
 remoteConditions:BindContextMenu(remoteConditionMenu)
 remoteConditions:BindContextMenuSelected(remoteConditionMenuSelected)
@@ -496,7 +501,8 @@ local function refreshLogs()
         log.Button.Instance.Visible = remotesViewing[remoteInstance.ClassName]
     end
 
-    remoteList:Recalculate()
+    remoteListOut:Recalculate()
+    remoteListIn:Recalculate()
 end
 
 for _i,flag in pairs(ListFlags:GetChildren()) do
@@ -517,7 +523,8 @@ ListSearch.FocusLost:Connect(function(returned)
             instance.Visible = not (instance.Visible and not remoteInstance.Name:lower():find(ListSearch.Text))
         end
 
-        remoteList:Recalculate()
+        remoteListOut:Recalculate()
+        remoteListIn:Recalculate()
         ListSearch.Text = ""
     end
 end)
@@ -826,7 +833,8 @@ removeContextSelected:SetCallback(function()
         log:Remove()
     end
 
-    remoteList:Recalculate()
+    remoteListOut:Recalculate()
+    remoteListIn:Recalculate()
     selected.logs = {}
 end)
 
