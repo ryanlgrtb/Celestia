@@ -171,20 +171,6 @@ function Log.new(localScript)
             local source = _G.logs[scriptInstance] or decompile(scriptInstance)
             _G.logs[scriptInstance] = source
             InfoSource.Wrapper.Code.Text = source
-            InfoSource.Wrapper.Code.TextWrapped = false
-            Highlighter.highlight(
-                {
-                    textObject = InfoSource.Wrapper.Code
-                }
-            )
-
-            local lines = InfoSource.Wrapper.Code:WaitForChild('SyntaxHighlights')
-            for i, v in next, lines:GetChildren() do
-                if v:IsA('TextLabel') then
-                    v.ZIndex = 10
-                end
-            end
-            InfoSource.Wrapper.Code.TextTransparency = 1
 
             selected.scriptLog = log
         end
