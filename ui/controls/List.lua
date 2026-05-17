@@ -36,15 +36,17 @@ end
 
 function ListButton.new(instance, list)
     local listButton = {}
-    local listInstance = list.Container
+
+    local scrollContainer = list.Container
+    local contentFrame = list.Instance
 
     list.Buttons[instance] = listButton
 
     if instance.Visible then
-        listInstance.CanvasSize = listInstance.CanvasSize + UDim2.new(0, 0, 0, instance.AbsoluteSize.Y + 5)
+        scrollContainer.CanvasSize = scrollContainer.CanvasSize + UDim2.new(0, 0, 0, instance.AbsoluteSize.Y + 5)
     end
 
-    instance.Parent = listInstance
+    instance.Parent = contentFrame
     instance.MouseButton1Click:Connect(function()
         if not ctrlHeld and listButton.Callback then
             listButton.Callback()
@@ -158,9 +160,9 @@ end
 function ListButton.remove(listButton)
     local list = listButton.List
     local instance = listButton.Instance
-    local listInstance = list.Container
+    local scrollContainer = list.Container
 
-    listInstance.CanvasSize = listInstance.CanvasSize - UDim2.new(0, 0, 0, instance.AbsoluteSize.Y + 5)
+    scrollContainer.CanvasSize = scrollContainer.CanvasSize - UDim2.new(0, 0, 0, instance.AbsoluteSize.Y + 5)
     list.Buttons[instance] = nil 
 
     instance:Destroy()
