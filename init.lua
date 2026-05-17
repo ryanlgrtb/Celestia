@@ -244,7 +244,7 @@ if readFile and writeFile then
                     end
                     loadCache[file] = asset
                 else
-                    error('Failed to load asset ' .. file)
+                    error('Failed to load asset ' .. file .. ' because: ' .. asset)
                 end
             end
             
