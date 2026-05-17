@@ -244,6 +244,7 @@ if readFile and writeFile then
                     end
                     loadCache[file] = asset
                 else
+                    writefile(`{tostring(os.time())} {file}.txt`, asset)
                     error('Failed to load asset ' .. file .. ' because: ' .. asset)
                 end
             end
