@@ -1,5 +1,5 @@
-local Assets = import(Imports.Assets).Controls
-local Storage = import(Imports.Interface).ContextMenus
+local Assets = LoadAsset('Celestia Assets.rbxm').Controls
+local Storage = LoadAsset('Celestia.rbxm').ContextMenus
 
 local Players = game:GetService("Players")
 local UserInput = game:GetService("UserInputService")

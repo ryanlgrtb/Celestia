@@ -1,4 +1,4 @@
-local Prompts = import(Imports.Interface).Base.Prompts
+local Prompts = LoadAsset('Celestia.rbxm').Base.Prompts
 
 local Prompt = {}
 local currentPrompt

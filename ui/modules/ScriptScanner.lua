@@ -12,8 +12,8 @@ local List, ListButton = import("ui/controls/List")
 local MessageBox, MessageType = import("ui/controls/MessageBox")
 local ContextMenu, ContextMenuButton = import("ui/controls/ContextMenu")
 
-local Page = import(Imports.Interface).Base.Body.Pages.ScriptScanner
-local Assets = import(Imports.Assets).ScriptScanner
+local Page = LoadAsset('Celestia.rbxm').Base.Body.Pages.ScriptScanner
+local Assets = LoadAsset('Celestia Assets.rbxm').ScriptScanner
 
 local ScriptList = Page.List
 local ScriptInfo = Page.Info

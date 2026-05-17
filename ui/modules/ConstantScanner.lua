@@ -15,8 +15,8 @@ local MessageBox, MessageType = import("ui/controls/MessageBox")
 local ContextMenu, ContextMenuButton = import("ui/controls/ContextMenu")
 local TabSelector = import("ui/controls/TabSelector")
 
-local Page = import(Imports.Interface).Base.Body.Pages.ConstantScanner
-local Assets = import(Imports.Assets).ConstantScanner
+local Page = LoadAsset('Celestia.rbxm').Base.Body.Pages.ConstantScanner
+local Assets = LoadAsset('Celestia Assets.rbxm').ConstantScanner
 
 local Query = Page.Query
 local Search = Query.Search

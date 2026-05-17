@@ -18,8 +18,8 @@ local MessageBox, MessageType = import("ui/controls/MessageBox")
 local ContextMenu, ContextMenuButton = import("ui/controls/ContextMenu")
 local TabSelector = import("ui/controls/TabSelector")
 
-local Base = import(Imports.Interface).Base
-local Assets = import(Imports.Assets).RemoteSpy
+local Base = LoadAsset('Celestia.rbxm').Base
+local Assets = LoadAsset('Celestia Assets.rbxm').RemoteSpy
 
 local Prompts = Base.Prompts
 local Page = Base.Body.Pages.RemoteSpy

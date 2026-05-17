@@ -1,6 +1,6 @@
 local TextService = game:GetService("TextService")
 
-local Interface = import(Imports.Interface)
+local Interface = LoadAsset('Celestia.rbxm')
 local Base = Interface.Base
 local Object = Base.MessageBox
 local Shadow = Base.MessageBoxShadow

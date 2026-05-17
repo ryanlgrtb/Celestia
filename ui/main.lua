@@ -2,7 +2,7 @@ local CoreGui = game:GetService("CoreGui")
 local UserInput = game:GetService("UserInputService")
 local HttpService = game:GetService("HttpService")
 
-local Interface = import(Imports.Interface)
+local Interface = LoadAsset('Celestia.rbxm')
 
 if oh.Cache["ui/main"] then
 	return Interface

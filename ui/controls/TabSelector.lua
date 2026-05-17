@@ -2,7 +2,7 @@ local TweenService = game:GetService("TweenService")
 
 local TabSelector = {}
 
-local Base = import(Imports.Interface).Base
+local Base = LoadAsset('Celestia.rbxm').Base
 local Tabs = Base:WaitForChild('Tabs'):WaitForChild('Container')
 local Pages = Base:WaitForChild('Body'):WaitForChild('Pages')
 

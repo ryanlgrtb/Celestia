@@ -19,8 +19,8 @@ local TabSelector = import("ui/controls/TabSelector")
 local MessageBox, MessageType = import("ui/controls/MessageBox")
 local ContextMenu, ContextMenuButton = import("ui/controls/ContextMenu")
 
-local Base = import(Imports.Interface).Base
-local Assets = import(Imports.Assets).UpvalueScanner
+local Base = LoadAsset('Celestia.rbxm').Base
+local Assets = LoadAsset('Celestia Assets.rbxm').UpvalueScanner
 
 local Prompts = Base.Prompts
 local Page = Base.Body.Pages.UpvalueScanner

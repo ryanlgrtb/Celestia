@@ -8,13 +8,16 @@ local web = true
 local user = "ryanlgrtb" -- change if you're using a fork
 local branch = game:GetService('HttpService'):JSONDecode(game:HttpGetAsync('https://api.github.com/repos/' .. user .. '/Celestia/commits'))[1]['sha']
 local importCache = {}
+local loadCache = {}
 
 local debugging = true
 
+--[[
 getgenv().Imports = {
 	Interface = 'rbxassetid://80656998888023',
 	Assets = 'rbxassetid://85243661160730'
 }
+]]--
 
 local function hasMethods(methods)
     for name in pairs(methods) do
@@ -149,8 +152,8 @@ environment.oh = {
             end
         end
 
-        local ui = importCache[Imports.Interface]
-        local assets = importCache[Imports.Assets]
+        local ui = environment.LoadAsset('Celestia.rbxm')
+        local assets = environment.LoadAsset('Celestia Assets.rbxm')
 
         if ui then
             unpack(ui):Destroy()
@@ -216,6 +219,30 @@ if readFile and writeFile then
             createFolder("hydroxide/user/" .. user .. "/ui")
             createFolder("hydroxide/user/" .. user .. "/ui/controls")
             createFolder("hydroxide/user/" .. user .. "/ui/modules")
+        end
+        
+        function environment.LoadAsset(file)
+            if loadCache[file] then
+                return unpack(loadCache[file])
+            end
+            
+            local content = game:HttpGetAsync('https://raw.githubusercontent.com/' .. user .. '/Celestia/' .. branch .. '/' .. file)
+            if content then
+                local ok, asset = pcall(function()
+                    return game:GetService('SerializationService'):DeserializeInstancesAsync(
+                        buffer.fromstring(
+                            content
+                        )
+                    )
+                end)
+                if ok and asset then
+                    loadCache[file] = { asset }
+                else
+                    error('Failed to load asset ' .. file)
+                end
+            end
+            
+            return loadCache[file]
         end
 
         function environment.import(asset)
