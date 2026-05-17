@@ -167,6 +167,15 @@ function Log.new(localScript)
             -- end
 
             -- script decompilation here
+            
+            _G.logs = _G.logs or {}
+            _G.logs[localScript] = _G.logs[localScript] or decompile(localScript)
+            InfoSource.Wrapper.Code.Text = _G.logs[localScript]
+            Highlighter.highlight(
+                {
+                    textObject = InfoSource.Wrapper.Code
+                }
+            )
 
             selected.scriptLog = log
         end
@@ -226,17 +235,6 @@ for _i, sectionButton in pairs(InfoOptions:GetChildren()) do
 
         sectionButton.MouseButton1Click:Connect(function()
             local section = InfoSections:FindFirstChild(sectionButton.Name)
-
-            if section.Name == 'Source' then
-                local path = selected.logContext.LocalScript.Instance
-                section.Wrapper.Code.Text = decompile(path)
-                Highlighter.highlight(
-                    {
-                        textObject = section.Wrapper.Code
-                    }
-                )
-            end
-            
             animationCache[selectedSectionButton].leave:Play()
             
             selectedSection.Visible = false
