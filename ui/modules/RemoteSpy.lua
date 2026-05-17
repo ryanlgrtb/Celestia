@@ -35,8 +35,8 @@ local RemoteLogs = Page.Logs
 local LogsButtons = RemoteLogs.Buttons
 local LogsRemote = RemoteLogs.RemoteObject
 local LogsBack = RemoteLogs.Back
-local LogsResultsOut = RemoteLogs.Results.Clip.Outgoing
-local LogsResultsIn = RemoteLogs.Results.Clip.Incoming
+local LogsResultsOut = RemoteLogs.Results.Clip.Content.Outgoing
+local LogsResultsIn = RemoteLogs.Results.Clip.Content.Incoming
 
 local RemoteConditions = Page.Conditions
 local ConditionsRemote = RemoteConditions.RemoteObject
