@@ -19,7 +19,7 @@ local ContextMenu, ContextMenuButton = import("ui/controls/ContextMenu")
 local TabSelector = import("ui/controls/TabSelector")
 
 local Base = LoadAsset('Celestia.rbxm').Base
-local Assets = LoadAsset('Celestia Assets.rbxm').RemoteSpy
+local Assets = LoadAsset('CelestiaAssets.rbxm').RemoteSpy
 
 local Prompts = Base.Prompts
 local Page = Base.Body.Pages.RemoteSpy

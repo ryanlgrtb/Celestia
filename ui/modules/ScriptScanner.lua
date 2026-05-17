@@ -13,7 +13,7 @@ local MessageBox, MessageType = import("ui/controls/MessageBox")
 local ContextMenu, ContextMenuButton = import("ui/controls/ContextMenu")
 
 local Page = LoadAsset('Celestia.rbxm').Base.Body.Pages.ScriptScanner
-local Assets = LoadAsset('Celestia Assets.rbxm').ScriptScanner
+local Assets = LoadAsset('CelestiaAssets.rbxm').ScriptScanner
 
 local ScriptList = Page.List
 local ScriptInfo = Page.Info

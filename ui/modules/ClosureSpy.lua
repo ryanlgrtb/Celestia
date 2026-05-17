@@ -16,7 +16,7 @@ local MessageBox, MessageType = import("ui/controls/MessageBox")
 local ContextMenu, ContextMenuButton = import("ui/controls/ContextMenu")
 
 local Base = LoadAsset('Celestia.rbxm').Base
-local Assets = LoadAsset('Celestia Assets.rbxm').ClosureSpy
+local Assets = LoadAsset('CelestiaAssets.rbxm').ClosureSpy
 
 local Prompts = Base.Prompts
 local Page = Base.Body.Pages.ClosureSpy

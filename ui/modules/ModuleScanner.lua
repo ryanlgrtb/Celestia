@@ -10,7 +10,7 @@ local MessageBox, MessageType = import("ui/controls/MessageBox")
 local ContextMenu, ContextMenuButton = import("ui/controls/ContextMenu")
 
 local Page = LoadAsset('Celestia.rbxm').Base.Body.Pages.ModuleScanner
-local Assets = LoadAsset('Celestia Assets.rbxm').ModuleScanner
+local Assets = LoadAsset('CelestiaAssets.rbxm').ModuleScanner
 
 local Query = Page.Query
 local Search = Query.Search
